@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>DatasetCropper.Cli</RootNamespace>
+    <AssemblyName>DatasetCropper-cli</AssemblyName>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <!-- RID-pinned projects don't set PlatformTarget by default, but the
+         Microsoft.AI.DirectML package only copies DirectML.dll to the output
+         when PlatformTarget is recognized (x64/Win32/ARM…). Set it explicitly so
+         the DML native DLL lands next to onnxruntime.dll. -->
+    <PlatformTarget>x64</PlatformTarget>
+    <Version>1.0.0</Version>
+    <Description>Command-line front end for the DatasetCropper image pipeline (same engine as the WPF app).</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- DirectML native redistributable. Referenced *directly* (not just
+         transitively via Microsoft.ML.OnnxRuntime.DirectML) so its build targets
+         are imported and DirectML.dll is copied to the output next to
+         onnxruntime.dll. See the PlatformTarget note above. -->
+    <PackageReference Include="Microsoft.AI.DirectML" Version="1.15.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The whole engine (pipeline, ONNX wrappers, imaging, models) comes from
+         the shared library; the ONNX win-x64 native DLLs flow in transitively
+         because this project is RID-pinned to win-x64. -->
+    <ProjectReference Include="..\DatasetCropper.Core\DatasetCropper.Core.csproj" />
+  </ItemGroup>
+
+</Project>

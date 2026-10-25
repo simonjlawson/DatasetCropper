@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>DatasetCropper</RootNamespace>
+    <AssemblyName>DatasetCropper</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <!-- RID-pinned projects don't set PlatformTarget by default, but the
+         Microsoft.AI.DirectML package only copies DirectML.dll to the output
+         when PlatformTarget is recognized (x64/Win32/ARM…). Set it explicitly so
+         the DML native DLL lands next to onnxruntime.dll. -->
+    <PlatformTarget>x64</PlatformTarget>
+    <Version>1.0.0</Version>
+    <Authors>DatasetCropper</Authors>
+    <Product>DatasetCropper</Product>
+    <Description>Batch processor that turns images into a training-ready dataset (1024 crops + concept masks + WD14 captions).</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.4.0" />
+    <!-- DirectML native redistributable. Referenced *directly* (not just
+         transitively via Microsoft.ML.OnnxRuntime.DirectML) so its build targets
+         are imported and DirectML.dll is copied to the output next to
+         onnxruntime.dll. See the PlatformTarget note above. -->
+    <PackageReference Include="Microsoft.AI.DirectML" Version="1.15.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Shared engine (pipeline, ONNX wrappers, imaging, models). ImageSharp
+         and OnnxRuntime (incl. win-x64 native DLLs) arrive transitively. -->
+    <ProjectReference Include="..\DatasetCropper.Core\DatasetCropper.Core.csproj" />
+  </ItemGroup>
+
+</Project>

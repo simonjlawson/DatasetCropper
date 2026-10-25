@@ -1,0 +1,20 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        App-level tweaks on top of the Material Design theme applied by
+        Services/AppTheme (loaded at runtime in App.OnStartup). Only the bits
+        that need to differ from the stock Material control style are set here
+        and none of them depend on Material brushes — that would prevent the
+        XAML from parsing before the theme dictionaries are loaded.
+    -->
+
+    <Style TargetType="Button">
+        <Setter Property="Padding" Value="12,5"/>
+    </Style>
+
+    <Style TargetType="ListBoxItem">
+        <Setter Property="Padding" Value="4,5"/>
+    </Style>
+
+</ResourceDictionary>

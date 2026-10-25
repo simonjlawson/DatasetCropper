@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>DatasetCropper.Core</RootNamespace>
+    <AssemblyName>DatasetCropper.Core</AssemblyName>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- ONNX Runtime with the DirectML execution provider. DirectML runs on any
+         Windows GPU (NVIDIA/AMD/Intel) with only the GPU driver installed — no
+         CUDA toolkit / cuDNN / cuBLAS required. (The separate .Gpu package ships
+         a *different* onnxruntime.dll built for the CUDA EP; the two are mutually
+         exclusive, so we pick DirectML as the default GPU path. OnnxFactory still
+         tries CUDA first and falls back to DirectML, so a machine that *does* have
+         the CUDA runtime can use it by adding the .Gpu package.) Native win-x64
+         assets (onnxruntime.dll, DirectML.dll) are copied into the output of any
+         RID'd project that references this library. -->
+    <PackageReference Include="Microsoft.ML.OnnxRuntime.DirectML" Version="1.24.4" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="4.1.3" />
+  </ItemGroup>
+
+</Project>
